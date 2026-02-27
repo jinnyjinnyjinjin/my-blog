@@ -1,7 +1,7 @@
 [
   {
-    "slug": "[20260227]_analytical_thinking_training",
-    "path": "data_analysis/2026/02/[20260227]_analytical_thinking_training",
+    "slug": "analytical_thinking_training_01",
+    "path": "data_analysis/2026/02/analytical_thinking_training_01",
     "title": "분석적 사고 훈련",
     "excerpt": "> 우리는 더 나은 '의사결정'을 돕기 위해 데이터 분석을 한다.   > 이 다음엔 무엇을 해야 하는가? 라는 질문에 답해야 한다.     데이터 분석의 두 가지 상황     1. 데이터 셋만 있을 때 > 이 데이터셋으로 어떤 의사결정에 도움을 줄 수 있을까?  의사결...",
     "date": "2026-02-27",
@@ -14,8 +14,8 @@
     "readingTime": 2
   },
   {
-    "slug": "[20260226]_기술_통계",
-    "path": "statistics/2026/02/[20260226]_기술_통계",
+    "slug": "descriptive_statistics_01",
+    "path": "statistics/2026/02/descriptive_statistics_01",
     "title": "기술통계",
     "excerpt": "관측을 통해 얻은 데이터에서 그 데이터의 특징을 뽑아내기 위한 기술  - 데이터 자체. 즉, '현실 그 자체'로부터 무엇인가 그 분포의 특징이나 반복되는 것을 이끌어내기 위한 방법이 필요해짐 ➡️ 통계 - 데이터로 나열되어 있는 많은 숫자를 어떤 기준으로 정리 정돈해서...",
     "date": "2026-02-26",
