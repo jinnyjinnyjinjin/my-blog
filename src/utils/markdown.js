@@ -62,10 +62,17 @@ marked.setOptions({
 // Custom renderer for task lists (marked v5+ uses token objects)
 const renderer = {
   listitem(token) {
-    // token.text contains the raw text, token.tokens contains parsed content
-    let text = this.parser.parseInline(token.tokens)
+    let text = ''
+    if (token.tokens) {
+      for (const t of token.tokens) {
+        if (t.type === 'list') {
+          text += this.parser.parse([t])
+        } else {
+          text += this.parser.parseInline([t])
+        }
+      }
+    }
 
-    // Check for task list syntax
     if (token.task) {
       return `<li class="task-list-item"><input type="checkbox" ${token.checked ? 'checked' : ''} disabled> ${text}</li>\n`
     }

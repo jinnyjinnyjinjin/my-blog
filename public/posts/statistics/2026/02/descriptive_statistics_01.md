@@ -1,7 +1,7 @@
 ---
 title: "기술통계"
 date: 2026-02-26
-category: "statistics"
+category: "Statistics"
 tags: [통계, 기술통계, 데이터분석]
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "분석적 사고 훈련"
 date: 2026-02-27
-category: "data_analysis"
+category: "Data Analysis"
 tags: [데이터분석, 분석적사고, 의사결정]
 ---
 
