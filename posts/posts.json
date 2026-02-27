@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "slug": "기술_통계_01",
+    "path": "statistics/2026/02/기술_통계_01",
+    "title": "기술통계",
+    "excerpt": "기술통계",
+    "date": "2026-02-26",
+    "category": "statistics",
+    "tags": [
+      "통계",
+      "기술통계",
+      "데이터분석"
+    ],
+    "readingTime": 5
+  }
+]
