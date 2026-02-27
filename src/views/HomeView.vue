@@ -27,12 +27,7 @@
 
     <!-- Empty state -->
     <div v-if="store.filteredPosts.length === 0" class="text-center py-16">
-      <div class="text-4xl mb-3">📝</div>
-      <p class="text-gray-500 dark:text-gray-400 mb-4">No posts found</p>
-      <RouterLink to="/write" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-md text-sm font-medium
-               bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 hover:opacity-90 no-underline transition-opacity">
-        Write your first post
-      </RouterLink>
+      <p class="text-gray-500 dark:text-gray-400">No posts found</p>
     </div>
 
     <!-- Post list -->
@@ -84,7 +79,7 @@
 </template>
 
 <script setup>
-import { RouterLink, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { useBlogStore } from '../stores/useBlogStore.js'
 
 const store = useBlogStore()
