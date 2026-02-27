@@ -49,7 +49,7 @@ marked.use(
           return hljs.highlight(code, { language: lang }).value
         } catch (e) {}
       }
-      return hljs.highlight(code, { language: 'plaintext' }).value
+      return hljs.highlightAuto(code).value
     }
   })
 )

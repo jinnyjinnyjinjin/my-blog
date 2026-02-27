@@ -55,7 +55,8 @@
 <script setup>
 import { RouterLink } from 'vue-router'
 import { useBlogStore } from '../stores/useBlogStore.js'
+import { BLOG_TITLE } from '../config.js'
 
 const store = useBlogStore()
-const blogTitle = 'The Draft'
+const blogTitle = BLOG_TITLE
 </script>
