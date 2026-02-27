@@ -92,7 +92,10 @@ async function loadPost() {
   if (raw) {
     const { meta: parsedMeta, content } = parseFrontmatter(raw)
     meta.value = parsedMeta
-    renderedContent.value = parseMarkdown(content)
+    const base = import.meta.env.BASE_URL
+    const postDir = `${base}posts/${path.substring(0, path.lastIndexOf('/') + 1)}`
+    const resolvedContent = content.replace(/!\[([^\]]*)\]\((?!https?:\/\/|\/)(.*?)\)/g, `![$1](${postDir}$2)`)
+    renderedContent.value = parseMarkdown(resolvedContent)
     postContent.value = content
     const words = content.split(/\s+/).length
     readingTime.value = Math.ceil(words / 200)
