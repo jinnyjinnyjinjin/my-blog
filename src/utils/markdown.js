@@ -1,5 +1,6 @@
 import { marked } from 'marked'
 import { markedHighlight } from 'marked-highlight'
+import markedKatex from 'marked-katex-extension'
 import hljs from 'highlight.js/lib/core'
 import javascript from 'highlight.js/lib/languages/javascript'
 import typescript from 'highlight.js/lib/languages/typescript'
@@ -54,12 +55,14 @@ marked.use(
   })
 )
 
+marked.use(markedKatex({ throwOnError: false }))
+
 marked.setOptions({
   breaks: true,
   gfm: true,
 })
 
-// Custom renderer for task lists (marked v5+ uses token objects)
+// Custom renderer for task lists
 const renderer = {
   listitem(token) {
     let text = ''
