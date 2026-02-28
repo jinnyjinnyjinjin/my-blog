@@ -32,3 +32,6 @@ pnpm-debug.log*
 
 # CLAUDE
 CLAUDE.md
+
+# Generated
+public/posts/posts.json
