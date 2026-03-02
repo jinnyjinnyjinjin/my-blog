@@ -1,5 +1,20 @@
 [
   {
+    "slug": "probability-and-distributions",
+    "path": "statistics/2026/02/probability-and-distributions",
+    "title": "확률 기초와 확률분포",
+    "excerpt": "![확률분포선택플로우](img/distributions-selection-flowchart.png)     1. 확률 vs 통계  | 구분 | 확률 | 통계 | |------|------|------| | 방향 | 모집단 → 표본 (연역적) | 표본 → 모집단 (귀납적...",
+    "date": "2026-02-28",
+    "category": "Statistics",
+    "tags": [
+      "통계",
+      "확률",
+      "확률분포",
+      "데이터분석"
+    ],
+    "readingTime": 5
+  },
+  {
     "slug": "analytical-thinking-training-01",
     "path": "data_analysis/2026/02/analytical-thinking-training-01",
     "title": "분석적 사고 훈련",
