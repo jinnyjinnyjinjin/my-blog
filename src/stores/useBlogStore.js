@@ -33,7 +33,9 @@ export const useBlogStore = defineStore('blog', () => {
       const base = import.meta.env.BASE_URL
       const res = await fetch(`${base}posts/posts.json`)
       const data = await res.json()
-      posts.value = data.sort((a, b) => new Date(b.date) - new Date(a.date))
+      const isDev = import.meta.env.DEV
+      const filtered = isDev ? data : data.filter(p => !p.draft)
+      posts.value = filtered.sort((a, b) => new Date(b.date) - new Date(a.date))
     } catch (e) {
       console.error('Failed to fetch posts:', e)
       posts.value = []

@@ -4,6 +4,7 @@ import { fileURLToPath } from 'url'
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
 const postsDir = join(__dirname, '../public/posts')
+const isDev = process.env.NODE_ENV === 'development'
 
 function parseFrontmatter(raw) {
   const match = raw.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/)
@@ -47,6 +48,9 @@ async function scanDirectory(dir, basePath = '') {
       const raw = await readFile(fullPath, 'utf-8')
       const { meta, content } = parseFrontmatter(raw)
 
+      const draft = meta.draft === 'true' || meta.draft === true
+      if (draft && !isDev) continue
+
       const words = content.split(/\s+/).filter(Boolean).length
       const readingTime = Math.ceil(words / 200) || 1
 
@@ -59,6 +63,7 @@ async function scanDirectory(dir, basePath = '') {
         category: meta.category || '',
         tags: Array.isArray(meta.tags) ? meta.tags : (meta.tags ? [meta.tags] : []),
         readingTime,
+        ...(draft && { draft: true }),
       })
     }
   }
