@@ -5,7 +5,7 @@ category: "Machine Learning"
 tags: [텍스트분석, 머신러닝, 데이터분석]
 ---
 
-## 2. 텍스트 전처리 파이프라인
+## 1. 텍스트 전처리 파이프라인
 
 텍스트 데이터의 원본은 노이즈가 많기 때문에 전처리 파이프라인을 거쳐 텍스트를 깔끔하게 정리한다.
 
@@ -14,7 +14,7 @@ tags: [텍스트분석, 머신러닝, 데이터분석]
 3. 형태소 분석(Tokeniztion)
 4. 불용어 제거(Stopword Removal)
 
-### 2-1. 정제(Cleaning)
+### 1-1. 정제(Cleaning)
 분석에 불필요한 기호 제거
 | 제거 대상 | 예시 | 이유 |
 |-----------|------|------|
@@ -24,12 +24,12 @@ tags: [텍스트분석, 머신러닝, 데이터분석]
 |**숫자**| `10점`, `2024년` | 도메인에 따라 제거 여부 결정 |
 |**여러 공백**| `"영화  정말   좋다"` | 하나의 공백으로 정리 |
 
-### 2-2. 정규화(Nomalization)
+### 1-2. 정규화(Nomalization)
 같은 의미의 텍스트를 통일 시킴
 - ㅋㅋㅋ -> ㅋ
 - ㅠㅠㅠㅠ -> ㅠ
 
-### 2-3. 형태소(Tokeniztion) 분석 - 토큰화
+### 1-3. 형태소(Tokeniztion) 분석 - 토큰화
 문장을 의미있는 최소 단위인 `형태소`로 분리
 ```
 💡토큰화
@@ -58,7 +58,7 @@ tags: [텍스트분석, 머신러닝, 데이터분석]
 | 8 | 좋 | VA | 형용사 |
 | 9 | 습니다 | EF | 종결어미 |
 
-#### 2-4. 불용어 제거(Stopword Removal)
+### 1-4. 불용어 제거(Stopword Removal)
 `불용어` 는 자연어 처리(NLP)에서 분석에 큰 의미가 없으면서 자주 등장하는 단어(예: the, is, at, which, on, 정말, 진짜, 너무 등)를 의미한다.
 
 1. 도메인 불용어 선택
@@ -72,7 +72,7 @@ tags: [텍스트분석, 머신러닝, 데이터분석]
 | **stopwords-ko** | 약 680개의 범용 한국어 불용어 리스트 (가장 널리 사용) | https://github.com/stopwords-iso/stopwords-ko |
 | **spaCy Korean** | spaCy 한국어 모델에 포함된 불용어 | https://github.com/explosion/spaCy |
 
-## 3. CountVectorizer와 N-gram 빈도 분석
+## 2. CountVectorizer와 N-gram 빈도 분석
 
 `CountVectorizer`는 전처리된 텍스트 데이터를 숫자행렬(빈도행렬)로 변환하는 도구로, 각 문서에서 단어의 빈도를 계산하여 행렬로 만들어준다.
 0이 많은 건 `희소행렬`로 저장해서 메모리를 아낀다.
@@ -90,7 +90,7 @@ N-gram은 `CountVectorizer`의 `ngram_range` 파라미터로 연속된 N개의 �
 
 일반적으로 `uni/bigram` 이 더 많은 의미를 담고 있어 많이 쓰인다.
 
-## 4. TF-IDF 벡터화 및 핵심 키워드 추출
+## 3. TF-IDF 벡터화 및 핵심 키워드 추출
 
 - TF(Term Frequency): 문서 내 단어 빈도수
 - IDF(Inverse Document Frequency): 문서 빈도수 역수 (전체 문서 수 / 단어 등장 문서 수)
