@@ -1,5 +1,19 @@
 [
   {
+    "slug": "text-analysis-ml-01",
+    "path": "machine_learning/2026/03/text-analysis-ml-01",
+    "title": "텍스트 빈도 분석 - (1)",
+    "excerpt": "2. 텍스트 전처리 파이프라인  텍스트 데이터의 원본은 노이즈가 많기 때문에 전처리 파이프라인을 거쳐 텍스트를 깔끔하게 정리한다.  1. 정제(Cleaning) 2. 정규화(Nomalization) - 같은 의미의 텍스트를 통일 시킴 3. 형태소 분석(Tokeni...",
+    "date": "2026-03-12",
+    "category": "Machine Learning",
+    "tags": [
+      "텍스트분석",
+      "머신러닝",
+      "데이터분석"
+    ],
+    "readingTime": 3
+  },
+  {
     "slug": "probability-and-distributions",
     "path": "statistics/2026/02/probability-and-distributions",
     "title": "확률 기초와 확률분포",
