@@ -1,5 +1,5 @@
 ---
-title: "텍스트 빈도 분석 - (1)"
+title: "텍스트 빈도 분석"
 date: 2026-03-12
 category: "Machine Learning"
 tags: [텍스트분석, 머신러닝, 데이터분석]
