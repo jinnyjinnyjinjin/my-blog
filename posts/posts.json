@@ -1,8 +1,24 @@
 [
   {
+    "slug": "text-analysis-ml-02",
+    "path": "machine_learning/2026/03/text-analysis-ml-02",
+    "title": "딥러닝 기반 텍스트 분류: BERT 모델 활용",
+    "excerpt": "TF-IDF는 단어의 빈도만 고려하기 때문에, 단어의 문맥을 이해하지 못한다는 한계가 있다. - \"나는 사과를 좋아해\"와 \"나는 사과를 싫어해\"에서 '사과'는 같은 빈도로 계산되지만, 문맥에 따라 긍정/부정의 의미가 달라질 수 있다.  BERT(Bidirectional...",
+    "date": "2026-03-13",
+    "category": "Machine Learning",
+    "tags": [
+      "텍스트분석",
+      "머신러닝",
+      "데이터분석",
+      "BERT",
+      "ELECTRA"
+    ],
+    "readingTime": 2
+  },
+  {
     "slug": "text-analysis-ml-01",
     "path": "machine_learning/2026/03/text-analysis-ml-01",
-    "title": "텍스트 빈도 분석 - (1)",
+    "title": "텍스트 빈도 분석",
     "excerpt": "1. 텍스트 전처리 파이프라인  텍스트 데이터의 원본은 노이즈가 많기 때문에 전처리 파이프라인을 거쳐 텍스트를 깔끔하게 정리한다.  1. 정제(Cleaning) 2. 정규화(Nomalization) - 같은 의미의 텍스트를 통일 시킴 3. 형태소 분석(Tokeni...",
     "date": "2026-03-12",
     "category": "Machine Learning",
@@ -11,7 +27,7 @@
       "머신러닝",
       "데이터분석"
     ],
-    "readingTime": 4
+    "readingTime": 6
   },
   {
     "slug": "probability-and-distributions",
