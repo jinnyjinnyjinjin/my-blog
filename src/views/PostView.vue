@@ -50,6 +50,11 @@
 
       <hr class="border-gray-100 dark:border-gray-800 mt-12 mb-6" />
 
+      <!-- Giscus comments & reactions -->
+      <GiscusWidget />
+
+      <hr class="border-gray-100 dark:border-gray-800 mt-8 mb-6" />
+
       <!-- Footer nav -->
       <div class="text-sm">
         <RouterLink to="/" class="text-gray-400 dark:text-gray-600 hover:text-blue-600 dark:hover:text-blue-400 transition-colors no-underline">
@@ -65,6 +70,7 @@ import { ref, onMounted, watch } from 'vue'
 import { useRoute, RouterLink } from 'vue-router'
 import { useBlogStore } from '../stores/useBlogStore.js'
 import { parseMarkdown, parseFrontmatter } from '../utils/markdown.js'
+import GiscusWidget from '../components/GiscusWidget.vue'
 import 'highlight.js/styles/github-dark.css'
 
 const route = useRoute()
