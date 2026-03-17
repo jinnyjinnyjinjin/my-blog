@@ -1,0 +1,103 @@
+<svg width="680" height="560" viewBox="0 0 680 560" xmlns="http://www.w3.org/2000/svg">
+  <rect width="680" height="560" fill="white"/>
+
+  <!-- 제목 -->
+  <text font-family="Arial, sans-serif" font-size="16" font-weight="500" x="340" y="24" text-anchor="middle" fill="#1a1a18">Q-Q Plot 패턴별 해석</text>
+
+  <!-- ── Case 1: 정규분포 (좌상단) ── -->
+  <rect x="30" y="40" width="150" height="150" rx="8" fill="#f8f8f6" stroke="#d3d1c7" stroke-width="0.8"/>
+  <!-- axes -->
+  <line x1="50" y1="168" x2="162" y2="168" stroke="#888780" stroke-width="0.8"/>
+  <line x1="50" y1="168" x2="50" y2="52" stroke="#888780" stroke-width="0.8"/>
+  <!-- reference diagonal -->
+  <line x1="52" y1="166" x2="158" y2="54" stroke="#888780" stroke-width="0.8" stroke-dasharray="4 3"/>
+  <!-- dots on line -->
+  <circle cx="62"  cy="156" r="3" fill="#1D9E75"/>
+  <circle cx="78"  cy="140" r="3" fill="#1D9E75"/>
+  <circle cx="94"  cy="124" r="3" fill="#1D9E75"/>
+  <circle cx="110" cy="109" r="3" fill="#1D9E75"/>
+  <circle cx="126" cy="93"  r="3" fill="#1D9E75"/>
+  <circle cx="142" cy="68"  r="3" fill="#1D9E75"/>
+  <text font-family="Arial, sans-serif" font-size="12" font-weight="500" x="105" y="200" text-anchor="middle" fill="#085041">정규분포 ✓</text>
+
+  <!-- ── Case 2: 오른쪽 꼬리 길다 (중앙상단) ── -->
+  <rect x="200" y="40" width="150" height="150" rx="8" fill="#f8f8f6" stroke="#d3d1c7" stroke-width="0.8"/>
+  <line x1="220" y1="168" x2="332" y2="168" stroke="#888780" stroke-width="0.8"/>
+  <line x1="220" y1="168" x2="220" y2="52" stroke="#888780" stroke-width="0.8"/>
+  <line x1="222" y1="166" x2="328" y2="54" stroke="#888780" stroke-width="0.8" stroke-dasharray="4 3"/>
+  <circle cx="232" cy="160" r="3" fill="#D85A30"/>
+  <circle cx="248" cy="152" r="3" fill="#D85A30"/>
+  <circle cx="264" cy="138" r="3" fill="#D85A30"/>
+  <circle cx="280" cy="116" r="3" fill="#D85A30"/>
+  <circle cx="296" cy="88"  r="3" fill="#D85A30"/>
+  <circle cx="312" cy="60"  r="3" fill="#D85A30"/>
+  <text font-family="Arial, sans-serif" font-size="12" font-weight="500" x="275" y="200" text-anchor="middle" fill="#993C1D">오른쪽 꼬리 길다</text>
+
+  <!-- ── Case 3: 왼쪽 꼬리 길다 (우상단) ── -->
+  <rect x="370" y="40" width="150" height="150" rx="8" fill="#f8f8f6" stroke="#d3d1c7" stroke-width="0.8"/>
+  <line x1="390" y1="168" x2="502" y2="168" stroke="#888780" stroke-width="0.8"/>
+  <line x1="390" y1="168" x2="390" y2="52" stroke="#888780" stroke-width="0.8"/>
+  <line x1="392" y1="166" x2="498" y2="54" stroke="#888780" stroke-width="0.8" stroke-dasharray="4 3"/>
+  <circle cx="402" cy="150" r="3" fill="#D85A30"/>
+  <circle cx="418" cy="134" r="3" fill="#D85A30"/>
+  <circle cx="434" cy="118" r="3" fill="#D85A30"/>
+  <circle cx="450" cy="102" r="3" fill="#D85A30"/>
+  <circle cx="466" cy="80"  r="3" fill="#D85A30"/>
+  <circle cx="482" cy="68"  r="3" fill="#D85A30"/>
+  <text font-family="Arial, sans-serif" font-size="12" font-weight="500" x="445" y="200" text-anchor="middle" fill="#993C1D">왼쪽 꼬리 길다</text>
+
+  <!-- ── Case 4: 이상치 (좌하단) ── -->
+  <rect x="30" y="220" width="150" height="150" rx="8" fill="#f8f8f6" stroke="#d3d1c7" stroke-width="0.8"/>
+  <line x1="50" y1="348" x2="162" y2="348" stroke="#888780" stroke-width="0.8"/>
+  <line x1="50" y1="348" x2="50" y2="232" stroke="#888780" stroke-width="0.8"/>
+  <line x1="52" y1="346" x2="158" y2="234" stroke="#888780" stroke-width="0.8" stroke-dasharray="4 3"/>
+  <circle cx="62"  cy="336" r="3" fill="#1D9E75"/>
+  <circle cx="78"  cy="320" r="3" fill="#1D9E75"/>
+  <circle cx="94"  cy="304" r="3" fill="#1D9E75"/>
+  <circle cx="110" cy="289" r="3" fill="#1D9E75"/>
+  <circle cx="126" cy="273" r="3" fill="#1D9E75"/>
+  <!-- outliers -->
+  <circle cx="150" cy="238" r="5" fill="#E24B4A"/>
+  <circle cx="54"  cy="346" r="5" fill="#E24B4A"/>
+  <text font-family="Arial, sans-serif" font-size="11" x="158" y="236" fill="#A32D2D">이상치</text>
+  <text font-family="Arial, sans-serif" font-size="12" font-weight="500" x="105" y="380" text-anchor="middle" fill="#A32D2D">이상치 존재</text>
+
+  <!-- 판단 기준 패널 -->
+  <rect x="200" y="220" width="430" height="260" rx="8" fill="#f8f8f6" stroke="#d3d1c7" stroke-width="0.8"/>
+  <text font-family="Arial, sans-serif" font-size="14" font-weight="500" x="415" y="248" text-anchor="middle" fill="#1a1a18">판단 기준</text>
+
+  <!-- row 1 -->
+  <circle cx="224" cy="272" r="5" fill="#1D9E75"/>
+  <text font-family="Arial, sans-serif" font-size="13" x="238" y="277" fill="#1a1a18">점들이 대각선에 붙어있다</text>
+  <text font-family="Arial, sans-serif" font-size="11" x="238" y="295" fill="#5F5E5A">→ 정규분포 O, 모수 검정 사용 가능</text>
+
+  <!-- row 2 -->
+  <circle cx="224" cy="322" r="5" fill="#D85A30"/>
+  <text font-family="Arial, sans-serif" font-size="13" x="238" y="327" fill="#1a1a18">우상단에서 대각선 위로 크게 벗어남</text>
+  <text font-family="Arial, sans-serif" font-size="11" x="238" y="345" fill="#5F5E5A">→ 오른쪽 꼬리 두꺼움 (우편포, 양수 왜도)</text>
+  <text font-family="Arial, sans-serif" font-size="11" x="238" y="362" fill="#5F5E5A">→ 비모수 검정 사용 (Kruskal-Wallis + Dunn's)</text>
+
+  <!-- row 3 -->
+  <circle cx="224" cy="390" r="5" fill="#D85A30"/>
+  <text font-family="Arial, sans-serif" font-size="13" x="238" y="395" fill="#1a1a18">좌하단에서 대각선 아래로 벗어남</text>
+  <text font-family="Arial, sans-serif" font-size="11" x="238" y="413" fill="#5F5E5A">→ 왼쪽 꼬리 두꺼움 (좌편포, 음수 왜도)</text>
+
+  <!-- row 4 -->
+  <circle cx="224" cy="440" r="5" fill="#E24B4A"/>
+  <text font-family="Arial, sans-serif" font-size="13" x="238" y="445" fill="#1a1a18">양 끝에 점이 크게 벗어남</text>
+  <text font-family="Arial, sans-serif" font-size="11" x="238" y="463" fill="#5F5E5A">→ 이상치(outlier) 존재, 전처리 필요</text>
+
+  <!-- 축 라벨 공통 -->
+  <text font-family="Arial, sans-serif" font-size="10" x="105" y="215" text-anchor="middle" fill="#888780">이론적 분위수 →</text>
+  <text font-family="Arial, sans-serif" font-size="10" x="275" y="215" text-anchor="middle" fill="#888780">이론적 분위수 →</text>
+  <text font-family="Arial, sans-serif" font-size="10" x="445" y="215" text-anchor="middle" fill="#888780">이론적 분위수 →</text>
+  <text font-family="Arial, sans-serif" font-size="10" x="105" y="395" text-anchor="middle" fill="#888780">이론적 분위수 →</text>
+
+  <!-- 범례 -->
+  <circle cx="540" cy="58" r="5" fill="#1D9E75"/>
+  <text font-family="Arial, sans-serif" font-size="11" x="552" y="62" fill="#5F5E5A">정규분포</text>
+  <circle cx="540" cy="78" r="5" fill="#D85A30"/>
+  <text font-family="Arial, sans-serif" font-size="11" x="552" y="82" fill="#5F5E5A">비정규분포</text>
+  <circle cx="540" cy="98" r="5" fill="#E24B4A"/>
+  <text font-family="Arial, sans-serif" font-size="11" x="552" y="102" fill="#5F5E5A">이상치</text>
+</svg>
