@@ -13,54 +13,62 @@
     </div>
 
     <!-- Post content -->
-    <div v-else class="max-w-3xl mx-auto px-6 py-8">
-      <!-- Back button -->
-      <RouterLink to="/" class="inline-flex items-center gap-1 text-sm text-gray-400 dark:text-gray-600 hover:text-gray-700 dark:hover:text-gray-300 transition-colors mb-8 no-underline">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-        </svg>
-        Back
-      </RouterLink>
-
-      <!-- Post header -->
-      <header class="mb-8">
-        <span v-if="meta.category" class="text-sm text-blue-600 dark:text-blue-400 font-medium">{{ meta.category }}</span>
-        <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mt-1 mb-3 leading-tight">{{ meta.title }}</h1>
-        <div class="flex items-center gap-3 text-sm text-gray-400 dark:text-gray-600 flex-wrap">
-          <time>{{ formatDate(meta.date) }}</time>
-          <span v-if="readingTime">· {{ readingTime }} min read</span>
-          <span v-if="meta.author">· {{ meta.author }}</span>
-        </div>
-        <div v-if="meta.tags && meta.tags.length" class="flex flex-wrap gap-1.5 mt-3">
-          <span
-            v-for="tag in meta.tags"
-            :key="tag"
-            class="px-2 py-0.5 text-xs rounded-full border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400"
-          >#{{ tag }}</span>
-        </div>
-      </header>
-
-      <hr class="border-gray-100 dark:border-gray-800 mb-8" />
-
-      <!-- Rendered markdown -->
-      <div
-        class="markdown-body text-gray-800 dark:text-gray-200"
-        v-html="renderedContent"
-      />
-
-      <hr class="border-gray-100 dark:border-gray-800 mt-12 mb-6" />
-
-      <!-- Giscus comments & reactions -->
-      <GiscusWidget />
-
-      <hr class="border-gray-100 dark:border-gray-800 mt-8 mb-6" />
-
-      <!-- Footer nav -->
-      <div class="text-sm">
-        <RouterLink to="/" class="text-gray-400 dark:text-gray-600 hover:text-blue-600 dark:hover:text-blue-400 transition-colors no-underline">
-          ← All Posts
+    <div v-else class="flex justify-center gap-8 px-6 py-8">
+      <!-- Main article -->
+      <article class="w-full max-w-3xl min-w-0">
+        <!-- Back button -->
+        <RouterLink to="/" class="inline-flex items-center gap-1 text-sm text-gray-400 dark:text-gray-600 hover:text-gray-700 dark:hover:text-gray-300 transition-colors mb-8 no-underline">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+          </svg>
+          Back
         </RouterLink>
-      </div>
+
+        <!-- Post header -->
+        <header class="mb-8">
+          <span v-if="meta.category" class="text-sm text-blue-600 dark:text-blue-400 font-medium">{{ meta.category }}</span>
+          <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mt-1 mb-3 leading-tight">{{ meta.title }}</h1>
+          <div class="flex items-center gap-3 text-sm text-gray-400 dark:text-gray-600 flex-wrap">
+            <time>{{ formatDate(meta.date) }}</time>
+            <span v-if="readingTime">· {{ readingTime }} min read</span>
+            <span v-if="meta.author">· {{ meta.author }}</span>
+          </div>
+          <div v-if="meta.tags && meta.tags.length" class="flex flex-wrap gap-1.5 mt-3">
+            <span
+              v-for="tag in meta.tags"
+              :key="tag"
+              class="px-2 py-0.5 text-xs rounded-full border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-400"
+            >#{{ tag }}</span>
+          </div>
+        </header>
+
+        <hr class="border-gray-100 dark:border-gray-800 mb-8" />
+
+        <!-- Rendered markdown -->
+        <div
+          class="markdown-body text-gray-800 dark:text-gray-200"
+          v-html="renderedContent"
+        />
+
+        <hr class="border-gray-100 dark:border-gray-800 mt-12 mb-6" />
+
+        <!-- Giscus comments & reactions -->
+        <GiscusWidget />
+
+        <hr class="border-gray-100 dark:border-gray-800 mt-8 mb-6" />
+
+        <!-- Footer nav -->
+        <div class="text-sm">
+          <RouterLink to="/" class="text-gray-400 dark:text-gray-600 hover:text-blue-600 dark:hover:text-blue-400 transition-colors no-underline">
+            ← All Posts
+          </RouterLink>
+        </div>
+      </article>
+
+      <!-- Table of Contents -->
+      <aside class="hidden xl:block flex-shrink-0">
+        <TableOfContents :headings="headings" />
+      </aside>
     </div>
   </div>
 </template>
@@ -69,8 +77,9 @@
 import { ref, onMounted, watch } from 'vue'
 import { useRoute, RouterLink } from 'vue-router'
 import { useBlogStore } from '../stores/useBlogStore.js'
-import { parseMarkdown, parseFrontmatter } from '../utils/markdown.js'
+import { parseMarkdown, parseFrontmatter, extractHeadings } from '../utils/markdown.js'
 import GiscusWidget from '../components/GiscusWidget.vue'
+import TableOfContents from '../components/TableOfContents.vue'
 import 'highlight.js/styles/github-dark.css'
 
 const route = useRoute()
@@ -81,6 +90,7 @@ const postContent = ref(null)
 const meta = ref({})
 const renderedContent = ref('')
 const readingTime = ref(0)
+const headings = ref([])
 
 function getPostPath() {
   const { category, year, month, slug } = route.params
@@ -105,8 +115,10 @@ async function loadPost() {
     postContent.value = content
     const words = content.split(/\s+/).length
     readingTime.value = Math.ceil(words / 200)
+    headings.value = extractHeadings(content)
   } else {
     postContent.value = null
+    headings.value = []
   }
   loading.value = false
 }

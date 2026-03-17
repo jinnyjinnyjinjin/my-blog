@@ -62,8 +62,22 @@ marked.setOptions({
   gfm: true,
 })
 
-// Custom renderer for task lists
+function slugify(text) {
+  return text
+    .toLowerCase()
+    .replace(/<[^>]+>/g, '')
+    .replace(/[^\w\s가-힣]/g, '')
+    .trim()
+    .replace(/\s+/g, '-')
+}
+
+// Custom renderer for task lists and headings
 const renderer = {
+  heading({ tokens, depth }) {
+    const text = this.parser.parseInline(tokens)
+    const id = slugify(text)
+    return `<h${depth} id="${id}">${text}</h${depth}>\n`
+  },
   listitem(token) {
     let text = ''
     if (token.tokens) {
@@ -83,6 +97,26 @@ const renderer = {
   }
 }
 marked.use({ renderer })
+
+export function extractHeadings(content) {
+  const headings = []
+  const lines = content.split('\n')
+  let inCodeBlock = false
+  for (const line of lines) {
+    if (line.trimStart().startsWith('```')) {
+      inCodeBlock = !inCodeBlock
+      continue
+    }
+    if (inCodeBlock) continue
+    const match = line.match(/^(#{1,3})\s+(.+)$/)
+    if (match) {
+      const level = match[1].length
+      const text = match[2].trim()
+      headings.push({ level, text, id: slugify(text) })
+    }
+  }
+  return headings
+}
 
 export function parseMarkdown(content) {
   if (!content) return ''
