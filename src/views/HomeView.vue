@@ -5,15 +5,15 @@
       <span class="text-sm text-gray-500 dark:text-gray-400">Filtering:</span>
       <span v-if="store.searchQuery" class="filter-chip">
         "{{ store.searchQuery }}"
-        <button @click="store.searchQuery = ''" class="ml-1 hover:text-red-500">×</button>
+        <button @click="clearSearch" class="ml-1 hover:text-red-500">×</button>
       </span>
       <span v-if="store.activeTag" class="filter-chip">
         #{{ store.activeTag }}
-        <button @click="store.activeTag = ''" class="ml-1 hover:text-red-500">×</button>
+        <button @click="clearTag" class="ml-1 hover:text-red-500">×</button>
       </span>
       <span v-if="store.activeCategory" class="filter-chip">
         📁 {{ store.activeCategory }}
-        <button @click="store.activeCategory = ''" class="ml-1 hover:text-red-500">×</button>
+        <button @click="clearCategory" class="ml-1 hover:text-red-500">×</button>
       </span>
     </div>
 
@@ -33,7 +33,7 @@
     <!-- Post list -->
     <div v-else class="space-y-0 divide-y divide-gray-100 dark:divide-gray-800">
       <article
-        v-for="post in store.filteredPosts"
+        v-for="post in pagedPosts"
         :key="post.slug"
         class="py-6 group cursor-pointer"
         @click="$router.push(`/post/${post.path || post.slug}`)"
@@ -75,15 +75,84 @@
         </div>
       </article>
     </div>
+
+    <!-- Pagination -->
+    <div v-if="totalPages > 1" class="flex items-center justify-center gap-1 mt-10">
+      <button
+        @click="setPage(currentPage - 1)"
+        :disabled="currentPage === 1"
+        class="px-3 py-1.5 text-sm rounded text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+      >
+        ←
+      </button>
+      <button
+        v-for="page in totalPages"
+        :key="page"
+        @click="setPage(page)"
+        :class="[
+          'px-3 py-1.5 text-sm rounded transition-colors',
+          currentPage === page
+            ? 'bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 font-medium'
+            : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100'
+        ]"
+      >
+        {{ page }}
+      </button>
+      <button
+        @click="setPage(currentPage + 1)"
+        :disabled="currentPage === totalPages"
+        class="px-3 py-1.5 text-sm rounded text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+      >
+        →
+      </button>
+    </div>
   </div>
 </template>
 
 <script setup>
+import { ref, computed, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useBlogStore } from '../stores/useBlogStore.js'
 
+const PAGE_SIZE = 10
+
 const store = useBlogStore()
 const router = useRouter()
+
+const currentPage = ref(1)
+
+const totalPages = computed(() => Math.ceil(store.filteredPosts.length / PAGE_SIZE))
+
+const pagedPosts = computed(() => {
+  const start = (currentPage.value - 1) * PAGE_SIZE
+  return store.filteredPosts.slice(start, start + PAGE_SIZE)
+})
+
+// 필터 변경 시 첫 페이지로 리셋
+watch(
+  () => [store.searchQuery, store.activeTag, store.activeCategory],
+  () => { currentPage.value = 1 }
+)
+
+function setPage(page) {
+  currentPage.value = page
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+}
+
+function clearSearch() {
+  store.searchQuery = ''
+  currentPage.value = 1
+}
+
+function clearTag() {
+  store.activeTag = ''
+  currentPage.value = 1
+}
+
+function clearCategory() {
+  store.activeCategory = ''
+  currentPage.value = 1
+}
 
 function formatDate(dateStr) {
   if (!dateStr) return ''
