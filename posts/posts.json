@@ -1,5 +1,19 @@
 [
   {
+    "slug": "diecasting-ml-project-retrospective",
+    "path": "data_analysis/2026/03/diecasting-ml-project-retrospective",
+    "title": "데이터 분석과 머신러닝 모델 학습 프로젝트 회고",
+    "excerpt": "두 번째 프로젝트를 진행하면서 데이터 분석과 모델 학습의 전체적인 진행 흐름을 정리하고 각 단계별 개념을 확실히 다지고 싶었다. 특히 같은 주제로 프로젝트를 진행하였지만 수준 높은 결과물을 낸 다른 팀의 사례와 비교 해보면서 반성하고 인사이트를 얻고자 한다.     E...",
+    "date": "2026-03-17",
+    "category": "Data Analysis",
+    "tags": [
+      "머신러닝",
+      "데이터분석",
+      "회고"
+    ],
+    "readingTime": 12
+  },
+  {
     "slug": "text-analysis-ml-02",
     "path": "machine_learning/2026/03/text-analysis-ml-02",
     "title": "딥러닝 기반 텍스트 분류: BERT 모델 활용",
