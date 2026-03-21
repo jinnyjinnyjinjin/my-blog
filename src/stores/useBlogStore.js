@@ -74,7 +74,11 @@ export const useBlogStore = defineStore('blog', () => {
       result = result.filter(p => (p.tags || []).includes(activeTag.value))
     }
     if (activeCategory.value) {
-      result = result.filter(p => p.category === activeCategory.value)
+      // exact match (sub: "database/jpa") or parent match (parent: "database")
+      result = result.filter(p =>
+        p.category === activeCategory.value ||
+        p.category.startsWith(activeCategory.value + '/')
+      )
     }
     return result
   })
@@ -90,14 +94,25 @@ export const useBlogStore = defineStore('blog', () => {
       .sort((a, b) => b.count - a.count)
   })
 
+  // Parse "parent/sub" or "parent" category strings into a hierarchy
   const allCategories = computed(() => {
-    const catMap = {}
+    const parentMap = {}
     posts.value.forEach(p => {
-      if (p.category) {
-        catMap[p.category] = (catMap[p.category] || 0) + 1
+      if (!p.category) return
+      const [parent, sub] = p.category.split('/')
+      if (!parentMap[parent]) {
+        parentMap[parent] = { count: 0, subCategories: {} }
+      }
+      parentMap[parent].count++
+      if (sub) {
+        parentMap[parent].subCategories[sub] = (parentMap[parent].subCategories[sub] || 0) + 1
       }
     })
-    return Object.entries(catMap).map(([category, count]) => ({ category, count }))
+    return Object.entries(parentMap).map(([parent, data]) => ({
+      category: parent,
+      count: data.count,
+      subCategories: Object.entries(data.subCategories).map(([sub, count]) => ({ sub, count })),
+    }))
   })
 
   return {

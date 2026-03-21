@@ -26,7 +26,11 @@
 
         <!-- Post header -->
         <header class="mb-8">
-          <span v-if="meta.category" class="text-sm text-blue-600 dark:text-blue-400 font-medium">{{ meta.category }}</span>
+          <span
+            v-if="meta.category"
+            class="text-sm text-blue-600 dark:text-blue-400 font-medium cursor-pointer hover:underline"
+            @click="() => { store.activeCategory = meta.category; router.push('/') }"
+          >{{ meta.category }}</span>
           <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mt-1 mb-3 leading-tight">{{ meta.title }}</h1>
           <div class="flex items-center gap-3 text-sm text-gray-400 dark:text-gray-600 flex-wrap">
             <time>{{ formatDate(meta.date) }}</time>
@@ -75,7 +79,7 @@
 
 <script setup>
 import { ref, onMounted, watch } from 'vue'
-import { useRoute, RouterLink } from 'vue-router'
+import { useRoute, useRouter, RouterLink } from 'vue-router'
 import { useBlogStore } from '../stores/useBlogStore.js'
 import { parseMarkdown, parseFrontmatter, extractHeadings } from '../utils/markdown.js'
 import GiscusWidget from '../components/GiscusWidget.vue'
@@ -83,6 +87,7 @@ import TableOfContents from '../components/TableOfContents.vue'
 import 'highlight.js/styles/github-dark.css'
 
 const route = useRoute()
+const router = useRouter()
 const store = useBlogStore()
 
 const loading = ref(true)
@@ -93,12 +98,11 @@ const readingTime = ref(0)
 const headings = ref([])
 
 function getPostPath() {
-  const { category, year, month, slug } = route.params
-  if (category && year && month && slug) {
-    return `${category}/${year}/${month}/${slug}`
+  const { pathMatch } = route.params
+  if (pathMatch) {
+    return Array.isArray(pathMatch) ? pathMatch.join('/') : pathMatch
   }
-  // Fallback: find path from posts list
-  return store.getPostPath(route.params.slug)
+  return ''
 }
 
 async function loadPost() {

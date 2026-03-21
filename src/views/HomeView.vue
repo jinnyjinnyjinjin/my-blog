@@ -12,7 +12,7 @@
         <button @click="clearTag" class="ml-1 hover:text-red-500">×</button>
       </span>
       <span v-if="store.activeCategory" class="filter-chip">
-        📁 {{ store.activeCategory }}
+        📁 {{ store.activeCategory.replace('/', ' > ') }}
         <button @click="clearCategory" class="ml-1 hover:text-red-500">×</button>
       </span>
     </div>
@@ -35,40 +35,44 @@
       <article
         v-for="post in pagedPosts"
         :key="post.slug"
-        class="py-6 group cursor-pointer"
-        @click="$router.push(`/post/${post.path || post.slug}`)"
+        class="py-6"
       >
         <div class="flex items-start justify-between gap-4">
           <div class="flex-1 min-w-0">
             <!-- Category badge -->
-            <span v-if="post.category" class="inline-block text-xs text-blue-600 dark:text-blue-400 font-medium mb-1.5">
-              {{ post.category }}
-            </span>
+            <span
+              v-if="post.category"
+              class="inline-block text-xs text-blue-600 dark:text-blue-400 font-medium mb-1.5 cursor-pointer hover:underline"
+              @click="filterByCategory(post.category)"
+            >{{ post.category }}</span>
 
-            <!-- Title -->
-            <h3 class="text-[17px] font-semibold text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-snug mb-2">
-              {{ post.title }}
-            </h3>
+            <!-- Clickable area for post navigation -->
+            <div class="group cursor-pointer" @click="$router.push(`/post/${post.path || post.slug}`)">
+              <!-- Title -->
+              <h3 class="text-[17px] font-semibold text-gray-900 dark:text-gray-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-snug mb-2">
+                {{ post.title }}
+              </h3>
 
-            <!-- Excerpt -->
-            <p v-if="post.excerpt" class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed line-clamp-2 mb-3">
-              {{ post.excerpt }}
-            </p>
+              <!-- Excerpt -->
+              <p v-if="post.excerpt" class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed line-clamp-2 mb-3">
+                {{ post.excerpt }}
+              </p>
 
-            <!-- Meta: date + tags -->
-            <div class="flex items-center gap-3 flex-wrap">
-              <time class="text-xs text-gray-400 dark:text-gray-600">{{ formatDate(post.date) }}</time>
-              <span v-if="post.readingTime" class="text-xs text-gray-400 dark:text-gray-600">· {{ post.readingTime }} min read</span>
-              <div class="flex gap-1.5">
-                <span
-                  v-for="tag in (post.tags || []).slice(0, 3)"
-                  :key="tag"
-                  @click.stop="filterByTag(tag)"
-                  class="px-1.5 py-0.5 text-[11px] rounded bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400
-                         hover:bg-blue-100 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer"
-                >
-                  #{{ tag }}
-                </span>
+              <!-- Meta: date + tags -->
+              <div class="flex items-center gap-3 flex-wrap">
+                <time class="text-xs text-gray-400 dark:text-gray-600">{{ formatDate(post.date) }}</time>
+                <span v-if="post.readingTime" class="text-xs text-gray-400 dark:text-gray-600">· {{ post.readingTime }} min read</span>
+                <div class="flex gap-1.5">
+                  <span
+                    v-for="tag in (post.tags || []).slice(0, 3)"
+                    :key="tag"
+                    @click.stop="filterByTag(tag)"
+                    class="px-1.5 py-0.5 text-[11px] rounded bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400
+                           hover:bg-blue-100 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer"
+                  >
+                    #{{ tag }}
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -163,6 +167,12 @@ function formatDate(dateStr) {
 function filterByTag(tag) {
   store.activeTag = tag
   store.activeCategory = ''
+  router.push('/')
+}
+
+function filterByCategory(category) {
+  store.activeCategory = category
+  store.activeTag = ''
   router.push('/')
 }
 </script>

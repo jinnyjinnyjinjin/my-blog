@@ -6,8 +6,7 @@ const router = createRouter({
   history: createWebHashHistory(),
   routes: [
     { path: '/', component: HomeView },
-    { path: '/post/:slug', component: PostView },
-    { path: '/post/:category/:year/:month/:slug', component: PostView },
+    { path: '/post/:pathMatch(.*)+', component: PostView },
     { path: '/tag/:tag', component: HomeView },
     { path: '/category/:category', component: HomeView },
   ],

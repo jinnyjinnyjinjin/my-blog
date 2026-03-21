@@ -22,19 +22,42 @@
     <!-- Categories -->
     <div v-if="store.allCategories.length > 0" class="p-3">
       <p class="text-xs font-semibold text-gray-400 dark:text-gray-600 uppercase tracking-wider px-2 mb-1">Categories</p>
-      <button
-        v-for="cat in store.allCategories"
-        :key="cat.category"
-        @click="selectCategory(cat.category)"
-        class="sidebar-item w-full text-left"
-        :class="{ active: store.activeCategory === cat.category }"
-      >
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
-        </svg>
-        {{ cat.category }}
-        <span class="ml-auto text-xs text-gray-400">{{ cat.count }}</span>
-      </button>
+      <div v-for="cat in store.allCategories" :key="cat.category">
+        <!-- Parent category -->
+        <button
+          @click="selectCategory(cat.category)"
+          class="sidebar-item w-full text-left"
+          :class="{ active: isParentActive(cat.category) }"
+        >
+          <svg
+            v-if="cat.subCategories.length > 0"
+            class="w-3 h-3 transition-transform"
+            :class="expandedCategories.has(cat.category) ? 'rotate-90' : ''"
+            fill="none" stroke="currentColor" viewBox="0 0 24 24"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+          <svg v-else class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/>
+          </svg>
+          {{ cat.category }}
+          <span class="ml-auto text-xs text-gray-400">{{ cat.count }}</span>
+        </button>
+        <!-- Sub categories -->
+        <div v-if="cat.subCategories.length > 0 && expandedCategories.has(cat.category)" class="ml-4">
+          <button
+            v-for="sub in cat.subCategories"
+            :key="sub.sub"
+            @click="selectSubCategory(cat.category, sub.sub)"
+            class="sidebar-item w-full text-left"
+            :class="{ active: store.activeCategory === `${cat.category}/${sub.sub}` }"
+          >
+            <span class="w-3 h-3 flex items-center justify-center text-gray-300 dark:text-gray-600">└</span>
+            {{ sub.sub }}
+            <span class="ml-auto text-xs text-gray-400">{{ sub.count }}</span>
+          </button>
+        </div>
+      </div>
     </div>
 
     <hr v-if="store.allCategories.length > 0" class="border-gray-200 dark:border-gray-800 mx-3" />
@@ -61,12 +84,27 @@
 </template>
 
 <script setup>
+import { ref, watch } from 'vue'
 import { RouterLink, useRoute, useRouter } from 'vue-router'
 import { useBlogStore } from '../stores/useBlogStore.js'
 
 const store = useBlogStore()
 const route = useRoute()
 const router = useRouter()
+
+const expandedCategories = ref(new Set())
+
+watch(() => store.activeCategory, (val) => {
+  if (val) {
+    const parent = val.split('/')[0]
+    expandedCategories.value.add(parent)
+  }
+}, { immediate: true })
+
+// parent is active when activeCategory equals parent or starts with "parent/"
+function isParentActive(parent) {
+  return store.activeCategory === parent || store.activeCategory.startsWith(parent + '/')
+}
 
 function resetFilters() {
   store.activeTag = ''
@@ -84,11 +122,25 @@ function selectTag(tag) {
 }
 
 function selectCategory(cat) {
-  if (store.activeCategory === cat) {
+  if (isParentActive(cat) && !store.activeCategory.includes('/')) {
     store.activeCategory = ''
+    expandedCategories.value.delete(cat)
   } else {
     store.activeCategory = cat
     store.activeTag = ''
+    expandedCategories.value.add(cat)
+  }
+  router.push('/')
+}
+
+function selectSubCategory(parent, sub) {
+  const full = `${parent}/${sub}`
+  if (store.activeCategory === full) {
+    store.activeCategory = parent
+  } else {
+    store.activeCategory = full
+    store.activeTag = ''
+    expandedCategories.value.add(parent)
   }
   router.push('/')
 }
