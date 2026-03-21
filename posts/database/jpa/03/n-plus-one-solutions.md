@@ -90,7 +90,7 @@ Hibernate: select o1_0.id,o1_0.name,p1_0.order_id,p1_0.id,p1_0.amount from order
 > join fetch 는 기본적으로 inner join 하기 때문에 left join 을 원한다면 `LEFT JOIN FETCH` 해야한다.
 
 ### ⚠️ 주의 사항
-#### 1. Cartesian product(카타시안 곱)
+### 1. Cartesian product(카타시안 곱)
 먼저, to-one 여러 개인 fetch join 은 문제가 없다.
 ```java
 // Order → Member (ManyToOne)
@@ -99,7 +99,7 @@ Hibernate: select o1_0.id,o1_0.name,p1_0.order_id,p1_0.id,p1_0.amount from order
 @Query("SELECT o FROM Order o JOIN FETCH o.member JOIN FETCH o.store")
 List<Order> findAll();
 ```
-```bash
+```sql
 SELECT o.*, m.*, s.*
 FROM orders o
 INNER JOIN member m ON o.member_id = m.id
@@ -113,9 +113,6 @@ Order 3개면 결과도 정확히 3행이다. to-one은 항상 1:1로 매핑되�
 
 @Query("SELECT o FROM Order o LEFT JOIN FETCH o.payments")
 List<Order> findAll();
-```
-```
-// orders(3행) × payments(7행) → 7행 반환
 ```
 하지만, 컬렉션 여러개를 동시에 fetch join 할 때는 문제가 된다.
 ```java
@@ -268,5 +265,5 @@ List<Order> findAll();
 List<Order> findAll();
 ```
 
-#### ⚠️ 주의사항
+### ⚠️ 주의사항
 entity graph 도 fetch join 과 동일하게 `fetch join` 쿼리를 사용하기 때문에 페이징 처리 시에는 피하는 것이 좋다.
