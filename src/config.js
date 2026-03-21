@@ -1,1 +1,1 @@
-export const BLOG_TITLE = 'The Draft'
+export const BLOG_TITLE = 'Epoch'
