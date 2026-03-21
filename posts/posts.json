@@ -1,5 +1,20 @@
 [
   {
+    "slug": "n-plus-one-solutions",
+    "path": "database/jpa/03/n-plus-one-solutions",
+    "title": "JPA N+1 문제와 해결 방법 (Fetch Join, @BatchSize, @EntityGraph)",
+    "excerpt": "N + 1 문제 다음과 같이 1:N 관계의 엔티티가 있다고 하자.    java @Entity @Table(name = \"orders\") @Getter @NoArgsConstructor public class Order {     @Id @GeneratedValu...",
+    "date": "2026-03-21",
+    "category": "database/jpa",
+    "tags": [
+      "springboot",
+      "sql",
+      "jpa",
+      "n+1"
+    ],
+    "readingTime": 6
+  },
+  {
     "slug": "diecasting-ml-project-retrospective",
     "path": "data_analysis/2026/03/diecasting-ml-project-retrospective",
     "title": "다이캐스팅 공정 심화 프로젝트 회고",
