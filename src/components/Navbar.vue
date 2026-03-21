@@ -13,7 +13,7 @@
     </button>
 
     <!-- Logo / Blog title -->
-    <RouterLink to="/" class="font-semibold text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors no-underline text-[15px]">
+    <RouterLink to="/" @click="resetFilters" class="font-semibold text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors no-underline text-[15px]">
       {{ blogTitle }}
     </RouterLink>
 
@@ -59,4 +59,10 @@ import { BLOG_TITLE } from '../config.js'
 
 const store = useBlogStore()
 const blogTitle = BLOG_TITLE
+
+function resetFilters() {
+  store.searchQuery = ''
+  store.activeTag = ''
+  store.activeCategory = ''
+}
 </script>
